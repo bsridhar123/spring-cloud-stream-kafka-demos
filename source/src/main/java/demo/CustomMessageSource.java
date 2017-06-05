@@ -24,7 +24,7 @@ public class CustomMessageSource {
 	private Source source;                
 
 	public void  timerMessageSource(String message) {
-                 System.out.println("Writing Message...");
+                 System.out.println("Writing Message...:" + message);
 		 source.output().send(MessageBuilder.withPayload(message).build());
 	 }
 

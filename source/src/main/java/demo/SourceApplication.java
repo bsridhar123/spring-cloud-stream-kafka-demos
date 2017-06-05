@@ -35,7 +35,7 @@ public class SourceApplication {
 	}
 	@GetMapping("/{message}")
 	public  void getMessage(@PathVariable(value="message")  String message){
-		System.out.println("Inside Controller method");
+		//System.out.println("Inside Controller method");
 		customMessageSource.timerMessageSource(message);
 	}
 
