@@ -1,21 +1,11 @@
-	package demo;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.context.annotation.Bean;
-import org.springframework.integration.annotation.InboundChannelAdapter;
-import org.springframework.integration.annotation.Poller;
-import org.springframework.integration.core.MessageSource;
-import org.springframework.messaging.support.GenericMessage;
-import org.springframework.stereotype.Component;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 @EnableBinding(Source.class)
@@ -23,9 +13,16 @@ public class CustomMessageSource {
 	@Autowired
 	private Source source;                
 
-	public void  timerMessageSource(String message) {
-                 System.out.println("Writing Message...:" + message);
-		 source.output().send(MessageBuilder.withPayload(message).build());
+
+	public void  sendMessage(String payload,String eventType) {
+        System.out.println("Received payload...:" + payload);
+        System.out.println("Received eventType...:" + eventType);
+        System.out.println("Constructing Message: ");
+		Message<String> myMessage = MessageBuilder.withPayload(payload)
+                .setHeader("eventType", eventType)
+                .build();
+		System.out.println("Sending Message...");
+        source.output().send(myMessage);
 	 }
 
 }
