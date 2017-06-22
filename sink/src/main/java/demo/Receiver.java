@@ -17,7 +17,7 @@ public class Receiver {
 	 
 	@StreamListener(target = Sink.INPUT, condition = "headers['eventType']=='EmployeeCreatedEvent'")
 	public void handleEmployeeCreatedEvent(@Payload String payload) {
-		logger.info("Received QuoteCreatedEvent: " + payload);
+		logger.info("Received EmployeeCreatedEvent: " + payload);
 	}
 	
 	@StreamListener(target = Sink.INPUT, condition = "headers['eventType']=='EmployeeTransferredEvent'")
@@ -31,7 +31,7 @@ public class Receiver {
 		logger.info("Received event: " + eventType);
 	}
 	
-	/*@StreamListener(target = Sink.INPUT)
+	@StreamListener(target = Sink.INPUT)
 	public void handleDefaultEvent(Message<String> message) {
 		String payload=(String) message.getPayload();
 		MessageHeaders headers=message.getHeaders();
@@ -40,7 +40,7 @@ public class Receiver {
 		logger.info("Received headers: " + headers);
 		logger.info("Received headers: " + headers.toString());
 		logger.info("Received eventType header: " + headers.get("eventType"));
-	}*/
+	}
 
 	
 	
