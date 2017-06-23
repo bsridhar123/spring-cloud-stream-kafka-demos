@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.domain.EmployeeCreatedEvent;
+import demo.domain.EmployeeTransferredEvent;
 import demo.domain.Event;
 
 @SpringBootApplication
@@ -28,11 +29,20 @@ public class SendingApplication {
 				@PathVariable(value="eventType")  String eventType
 	){
 		
+		Event event;
+		if("1".equalsIgnoreCase(eventType)){
+			EmployeeCreatedEvent empCreatedEvent=new EmployeeCreatedEvent();
+			empCreatedEvent.setPayload("Created");
+			eventPublisher.publishEvent(empCreatedEvent);
+			System.out.println("Publishing Event: " + empCreatedEvent);
+		}else{
+			EmployeeTransferredEvent empTransferredEvent=new EmployeeTransferredEvent();
+			empTransferredEvent.setPayload("Transferred");
+			eventPublisher.publishEvent(empTransferredEvent);
+			System.out.println("Publishing Event: " + empTransferredEvent);
+		}
 		
-		EmployeeCreatedEvent employeeCreatedEvent=new EmployeeCreatedEvent();
-		employeeCreatedEvent.setPayload("Welcome");
-		System.out.println("Publishing Event: " + employeeCreatedEvent);
-		eventPublisher.publishEvent(employeeCreatedEvent);
+		
 	}
 
 
