@@ -1,11 +1,11 @@
 server:
-  port: 5001
+  port: 5002
 spring:
   cloud:
     stream:
       bindings:
         output:
-          destination: data-topic
+          destination: hellosri-topic
+      
+        
           
-spring.cloud.stream.kafka.binder.headers: eventType
-

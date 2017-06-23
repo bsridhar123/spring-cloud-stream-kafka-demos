@@ -1,8 +1,8 @@
 server:
-  port: 5002
+  port: 5001
 spring:
   cloud:
     stream:
       bindings:
         input:
-          destination: data-topic
+          destination: hellosri-topic
