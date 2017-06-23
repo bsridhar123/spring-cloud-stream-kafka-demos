@@ -7,16 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import demo.domain.EmployeeCreatedEvent;
+import demo.domain.Event;
+
 @SpringBootApplication
 @RestController
 public class SendingApplication {
 
 	@Autowired
-	CustomMessageSource customMessageSource;
+	EventPublisher eventPublisher;
 	
-	/*@Autowired
-	EventPublisher eventPublisher;*/
-	
+		
 	public static void main(String[] args) {
 		SpringApplication.run(SendingApplication.class, args);
 	}
@@ -26,10 +27,12 @@ public class SendingApplication {
 				@PathVariable(value="message")    String message,
 				@PathVariable(value="eventType")  String eventType
 	){
-		System.out.println("Received Message: " + message);
-		System.out.println("Received eventType: " + eventType);
-		System.out.println("Sending Message With header...");
-		customMessageSource.sendMessage(message,eventType);
+		
+		
+		EmployeeCreatedEvent employeeCreatedEvent=new EmployeeCreatedEvent();
+		employeeCreatedEvent.setPayload("Welcome");
+		System.out.println("Publishing Event: " + employeeCreatedEvent);
+		eventPublisher.publishEvent(employeeCreatedEvent);
 	}
 
 

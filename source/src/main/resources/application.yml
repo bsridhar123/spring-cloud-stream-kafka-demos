@@ -7,3 +7,5 @@ spring:
         output:
           destination: data-topic
           
+spring.cloud.stream.kafka.binder.headers: eventType
+
